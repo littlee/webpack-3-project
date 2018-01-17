@@ -1,7 +1,6 @@
 var path = require('path')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
 
@@ -34,13 +33,7 @@ function getPlugins() {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'common'
-      }),
-      new CopyWebpackPlugin([
-        {
-          from: 'images',
-          to: 'static/images'
-        }
-      ])
+      })
     ])
 }
 

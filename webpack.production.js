@@ -3,7 +3,6 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
 
@@ -27,7 +26,9 @@ function getPlugins() {
       })
     })
     .concat([
-      new UglifyJsPlugin(),
+      new UglifyJsPlugin({
+        sourceMap: true
+      }),
       new CleanWebpackPlugin('build'),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'common'
@@ -35,13 +36,7 @@ function getPlugins() {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      new ExtractTextPlugin('static/css/[hash:8].[name].css'),
-      new CopyWebpackPlugin([
-        {
-          from: 'images',
-          to: 'static/images'
-        }
-      ])
+      new ExtractTextPlugin('static/css/[hash:8].[name].css')
     ])
 }
 
